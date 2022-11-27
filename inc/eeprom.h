@@ -55,7 +55,7 @@ typedef struct
   SemaphoreHandle_t i2c_mutex;  /* mutex for mutually exclusive I2C */
   GPIO_TypeDef *WP_port;        /* write protect port */
   uint16_t WP_pin;              /* write protect pin */
-  uint8_t chip_select;          /* only for 24LCXX which XX > 16 */
+  uint8_t chip_select;          /* 3 bit only for 24LCXX which XX > 16, 24LC1025 only 2 bit */
   uint8_t page;                 /* EEPROM page size */
   uint32_t capacity;            /* EEPROM maximum capacity e.g. 24LC16 = 2000 byte */
 }
@@ -74,11 +74,11 @@ Status eeprom_write(eeprom *device,
                     uint32_t address,
                     uint8_t *buffer,
                     uint32_t size,
-                    uint32_t timeout);
+                    TickType_t timeout);
 
 Status eeprom_read(eeprom *device,
                    uint32_t address,
                    uint8_t *buffer,
                    uint32_t size,
-                   uint32_t timeout);
+                   TickType_t timeout);
 #endif /* EEPROM_H */
